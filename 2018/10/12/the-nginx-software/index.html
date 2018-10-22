@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8" >
+    <meta name="baidu-site-verification" content="dIcXMeY8Ya" />
+    
+    <title>nginx常用命令和基本操作及问题解决 | 火炎焱燚 | 个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" >
+    <meta name="keywords" content="java, Web, 前端开发" >
+    <meta name="description" content="java个人小站" >
+
+    
+    <link rel="alternative" href="/atom.xml" title="火炎焱燚 | 个人博客" type="application/atom+xml" >
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" >
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script>
+    <![endif]-->
+    
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?fd459238242776d173cdc64918fb32f2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</head>
+
+
+<body class="home">
+<script>  
+!function(){function n(n,e,t){return n.getAttribute(e)||t}function e(n){return document.getElementsByTagName(n)}function t(){var t=e("script"),o=t.length,i=t[o-1];return{l:o,z:n(i,"zIndex",-1),o:n(i,"opacity",.5),c:n(i,"color","0,0,0"),n:n(i,"count",120)}}function o(){a=m.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,c=m.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function i(){r.clearRect(0,0,a,c);var n,e,t,o,m,l;s.forEach(function(i,x){for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>a||i.x<0?-1:1,i.ya*=i.y>c||i.y<0?-1:1,r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e<u.length;e++)n=u[e],null!==n.x&&null!==n.y&&(o=i.x-n.x,m=i.y-n.y,l=o*o+m*m,l<n.max&&(n===y&&l>=n.max/2&&(i.x-=.03*o,i.y-=.03*m),t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,r.strokeStyle="rgba("+d.c+","+(t+.2)+")",r.moveTo(i.x,i.y),r.lineTo(n.x,n.y),r.stroke()))}),x(i)}var a,c,u,m=document.createElement("canvas"),d=t(),l="c_n"+d.l,r=m.getContext("2d"),x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(n){window.setTimeout(n,1e3/45)},w=Math.random,y={x:null,y:null,max:2e4};m.id=l,m.style.cssText="position:fixed;top:0;left:0;z-index:"+d.z+";opacity:"+d.o,e("body")[0].appendChild(m),o(),window.onresize=o,window.onmousemove=function(n){n=n||window.event,y.x=n.clientX,y.y=n.clientY},window.onmouseout=function(){y.x=null,y.y=null};for(var s=[],f=0;d.n>f;f++){var h=w()*a,g=w()*c,v=2*w()-1,p=2*w()-1;s.push({x:h,y:g,xa:v,ya:p,max:6e3})}u=s.concat([y]),setTimeout(function(){i()},100)}();  
+</script>
+
+    <!--[if lt IE 9]>
+    <div class="browsehappy">
+        当前网页 <strong>不支持</strong>
+        你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.
+    </div>
+    <![endif]-->
+
+    <!-- 博客头部 -->
+    <header class="header">
+    <section class="container header-main">
+        <div class="logo">
+            <a href="/">
+                <div class="cover">
+                    <span class="name">火炎焱燚</span>
+                    <span class="description">yzengchn Blog</span>
+                </div>
+            </a>
+        </div>
+        <div class="dropnav icon-paragraph-justify" id="JELON__btnDropNav"></div>
+        <ul class="menu hidden" id="JELON__menu">
+            
+            <li rel="/2018/10/12/the-nginx-software/index.html" class="item ">
+                <a href="/" title="首页" class="icon-home">&nbsp;首页</a>
+            </li>
+            
+            <li rel="/2018/10/12/the-nginx-software/index.html" class="item ">
+                <a href="/lab/" title="实验室" class="icon-lab">&nbsp;实验室</a>
+            </li>
+            
+            <li rel="/2018/10/12/the-nginx-software/index.html" class="item ">
+                <a href="/about/" title="关于" class="icon-about">&nbsp;关于</a>
+            </li>
+            
+            <li rel="/2018/10/12/the-nginx-software/index.html" class="item ">
+                <a href="/comment/" title="留言" class="icon-comment">&nbsp;留言</a>
+            </li>
+            
+        </ul>
+        <div class="profile clearfix">
+            <div class="feeds fl">
+                
+                
+                <p class="links">
+                    
+                        <a href="https://github.com/yzengchn" target="_blank">Github</a>
+                        |
+                    
+                        <a href="https://pages.coding.me" target="_blank">Hosted by Coding Pages</a>
+                        
+                    
+                </p>
+                <p class="sns">
+                    
+                        <a href="http://weibo.com/" class="sinaweibo" target="_blank"><b>■</b> 新浪微博</a>
+                    
+                        <a href="https://www.facebook.com/profile.php" class="qqweibo" target="_blank"><b>■</b> Facebook</a>
+                    
+                    <a href="javascript: void(0);" class="wechat">
+                        <b>■</b>
+                        公众号
+                        <span class="popover">
+                            <img src="/img/wechat_mp.jpg" width="120" height="120" alt="我的微信订阅号">
+                            <i class="arrow"></i>
+                        </span>
+                    </a>
+                </p>
+                
+            </div>
+            <div class="avatar fr">
+                <img src="/img/jelon.jpg" alt="avatar" title="yzengchn" >
+            </div>
+        </div>
+    </section>
+</header>
+
+
+    <!-- 博客正文 -->
+    <div class="container body clearfix">
+        <section class="content">
+            <div class="content-main widget">
+                <!-- 文章页 -->
+<!-- 文章 -->
+<article class="post article">
+    <header class="text-center">
+        <h3 class="post-title"><span>nginx常用命令和基本操作及问题解决</span></h3>
+    </header>
+    <p class="post-meta text-center">
+        Jelon 发表于
+        <time datetime="2018-10-12T02:00:00.000Z">2018-10-12</time>
+    </p>
+    <div class="post-content">
+        <p>nginx常用命令：<br> 启动nginx<br>./usr/local/nginx/sbin/nginx<br>停止nginx<br>nginx -s stop<br>重启nginx<br>./sbin/nginx -s reload<br>nginx -s reload<br>查看进程<br>ps aux | grep nginx<br>验证配置是否正确: nginx -t<br>查看Nginx的版本号：nginx -V<br><a id="more"></a><br>启动Nginx：start nginx<br>快速停止或关闭Nginx：nginx -s stop<br>正常停止或关闭Nginx：nginx -s quit<br>配置文件修改重装载命令：nginx -s reload</p>
+<p>解决nginx加tomcat的8080端口开放问题<br>server {<br>        listen       80;<br>        server_name  localhost;  </p>
+<pre><code>    #charset koi8-r;  
+    #access_log  logs/host.access.log  main;  
+    location / {  
+       proxy_pass http://localhost:8080 ;  
+       proxy_set_header Host $host:80;  
+    proxy_set_header X-Real-IP $remote_addr;  
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
+    proxy_set_header Via &quot;nginx&quot;;  
+    port_in_redirect off;  
+    }  
+} 
+</code></pre><p>nginx: [error] CreateFile() “E:\nginx\nginx-1.9.3/logs/nginx.pid” failed<br>nginx: [error] Open() “E:\nginx\nginx-1.9.3/logs/nginx.pid” failed<br>解决方法:<br>使用命令创建/logs/nginx.pid文件:<br>nginx -c conf/nginx.conf</p>
+<p>Configuring Locations</p>
+<p>下面的配置将匹配以 /some/path/开头的URIs，例如：/some/path/document.html<br>location /some/path/ {<br>…<br>}</p>
+<p>正则表达式能通过 ~ 符号 和 ~* 这两个符号表示，分别指正则表达式区分大小写和不区分大小写，以下例子表示匹配URIs中包含.html 或者.htm 的访问路径：<br>location ~ .html? {<br>…<br>}<br>nginx会匹配最准确的路径，会先匹配相对路径，如果不匹配，再跟正则表达式进行匹配</p>
+<p>以下例子中，第一个路径/images/的文件目录是/data，第二个路径表明nginx作为代理的角色将会把请求转给后端<a href="http://www.example.com的机器上" target="_blank" rel="noopener">www.example.com的机器上</a><br>server {<br>location /images/ {<br>root /data;<br>}</p>
+<p>location / {<br>proxy_pass <a href="http://www.example.com" target="_blank" rel="noopener">http://www.example.com</a>;<br>}<br>}<br>如果这样配置，那么除了/image/开头的URIs，其他的URIs将会以代理的方式传到后端机器</p>
+<p>root 指令<br>root指令能指定那个目录作为根目录用于文件的检索，这个指令能用于http,server,location这些块中<br>下面的例子指定了virtual server文件检索的根目录：<br>server {<br>root /www/data;</p>
+<p>location / {<br>}</p>
+<p>location /images/ {<br>}</p>
+<p>location ~ .(mp3|mp4) {<br>root /www/media;<br>}<br>}<br>当一个URI以/image/开头，那么将会在 /www/data/images/这个目录下进行检索；当URI以 .mp3或.mp4结尾时，nginx将会在/www/media目录下检索资源</p>
+<p>当一个请求以 / 结尾时，nginx会尝试在该目录下找到该请求的索引文件（index file）。默认的索引文件为index.html。<br>例如 如果URI为/images/some/path/，那么nginx会尝试查找/www/data/images/some/path/index.html文件，如果这个文件不存在，那么将默认返回404。<br>可以通过 autoindex指令来配置nginx自动生成目录文件列表，而不是返回index.html<br>location /images/ {<br>autoindex on;<br>}</p>
+<p>如果想让nginx查找更多指定类型的索引文件，可以通过Index指令指定，如：<br>location / {<br>index index.$geo.html index.htm index.html;<br>}</p>
+<p>try_files 指令<br>try_files指令会在原请求不存在时，重定向到指定的URI，并返回结果。例如：<br>server {<br>root /www/data;</p>
+<p>location /images/ {<br>try_files $uri /images/default.gif;<br>}<br>}<br>/www/data/images/index.html不存在时，将会返回/www/data/images/default.gif文件</p>
+<p>另外一种情况是返回状态码：<br>location / {<br>try_files $uri $uri/ $uri.html =404;<br>}<br>location  = / {</p>
+<h1 id="精确匹配-，主机名后面不能带任何字符串"><a href="#精确匹配-，主机名后面不能带任何字符串" class="headerlink" title="精确匹配 / ，主机名后面不能带任何字符串"></a>精确匹配 / ，主机名后面不能带任何字符串</h1><p>  [ configuration A ]<br>}</p>
+<p>location  / {</p>
+<h1 id="因为所有的地址都以-开头，所以这条规则将匹配到所有请求"><a href="#因为所有的地址都以-开头，所以这条规则将匹配到所有请求" class="headerlink" title="因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求"></a>因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求</h1><h1 id="但是正则和最长字符串会优先匹配"><a href="#但是正则和最长字符串会优先匹配" class="headerlink" title="但是正则和最长字符串会优先匹配"></a>但是正则和最长字符串会优先匹配</h1><p>  [ configuration B ]<br>}</p>
+<p>location /documents/ {</p>
+<h1 id="匹配任何以-documents-开头的地址，匹配符合以后，还要继续往下搜索"><a href="#匹配任何以-documents-开头的地址，匹配符合以后，还要继续往下搜索" class="headerlink" title="匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索"></a>匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索</h1><h1 id="只有后面的正则表达式没有匹配到时，这一条才会采用这一条"><a href="#只有后面的正则表达式没有匹配到时，这一条才会采用这一条" class="headerlink" title="只有后面的正则表达式没有匹配到时，这一条才会采用这一条"></a>只有后面的正则表达式没有匹配到时，这一条才会采用这一条</h1><p>  [ configuration C ]<br>}</p>
+<p>location ~ /documents/Abc {</p>
+<h1 id="匹配任何以-documents-开头的地址，匹配符合以后，还要继续往下搜索-1"><a href="#匹配任何以-documents-开头的地址，匹配符合以后，还要继续往下搜索-1" class="headerlink" title="匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索"></a>匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索</h1><h1 id="只有后面的正则表达式没有匹配到时，这一条才会采用这一条-1"><a href="#只有后面的正则表达式没有匹配到时，这一条才会采用这一条-1" class="headerlink" title="只有后面的正则表达式没有匹配到时，这一条才会采用这一条"></a>只有后面的正则表达式没有匹配到时，这一条才会采用这一条</h1><p>  [ configuration CC ]<br>}</p>
+<p>location ^~ /images/ {</p>
+<h1 id="匹配任何以-images-开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。"><a href="#匹配任何以-images-开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。" class="headerlink" title="匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。"></a>匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。</h1><p>  [ configuration D ]<br>}</p>
+<p>location ~* .(gif|jpg|jpeg)$ {</p>
+<h1 id="匹配所有以-gif-jpg或jpeg-结尾的请求"><a href="#匹配所有以-gif-jpg或jpeg-结尾的请求" class="headerlink" title="匹配所有以 gif,jpg或jpeg 结尾的请求"></a>匹配所有以 gif,jpg或jpeg 结尾的请求</h1><h1 id="然而，所有请求-images-下的图片会被-config-D-处理，因为-到达不了这一条正则"><a href="#然而，所有请求-images-下的图片会被-config-D-处理，因为-到达不了这一条正则" class="headerlink" title="然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则"></a>然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则</h1><p>  [ configuration E ]<br>}</p>
+<p>location /images/ {</p>
+<h1 id="字符匹配到-images-，继续往下，会发现-存在"><a href="#字符匹配到-images-，继续往下，会发现-存在" class="headerlink" title="字符匹配到 /images/，继续往下，会发现 ^~ 存在"></a>字符匹配到 /images/，继续往下，会发现 ^~ 存在</h1><p>  [ configuration F ]<br>}</p>
+<p>location /images/abc {</p>
+<h1 id="最长字符匹配到-images-abc，继续往下，会发现-存在"><a href="#最长字符匹配到-images-abc，继续往下，会发现-存在" class="headerlink" title="最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在"></a>最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在</h1><h1 id="F与G的放置顺序是没有关系的"><a href="#F与G的放置顺序是没有关系的" class="headerlink" title="F与G的放置顺序是没有关系的"></a>F与G的放置顺序是没有关系的</h1><p>  [ configuration G ]<br>}</p>
+<p>location ~ /images/abc/ {</p>
+<h1 id="只有去掉-config-D-才有效：先最长匹配-config-G-开头的地址，继续往下搜索，匹配到这一条正则，采用"><a href="#只有去掉-config-D-才有效：先最长匹配-config-G-开头的地址，继续往下搜索，匹配到这一条正则，采用" class="headerlink" title="只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用"></a>只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用</h1><pre><code>[ configuration H ] 
+</code></pre><p>}</p>
+<p>location ~<em> /js/.</em>/.js</p>
+<p>顺序 no优先级：<br>(location =) &gt; (location 完整路径) &gt; (location ^~ 路径) &gt; (location ~,~* 正则顺序) &gt; (location 部分起始路径) &gt; (/)<br>按照上面的location写法，以下的匹配示例成立：<br>/ -&gt; config A<br>精确完全匹配，即使/index.html也匹配不了<br>/downloads/download.html -&gt; config B<br>匹配B以后，往下没有任何匹配，采用B<br>/images/1.gif -&gt; configuration D<br>匹配到F，往下匹配到D，停止往下<br>/images/abc/def -&gt; config D<br>最长匹配到G，往下匹配D，停止往下<br>你可以看到 任何以/images/开头的都会匹配到D并停止，FG写在这里是没有任何意义的，H是永远轮不到的，这里只是为了说明匹配顺序<br>/documents/document.html -&gt; config C<br>匹配到C，往下没有任何匹配，采用C<br>/documents/1.jpg -&gt; configuration E<br>匹配到C，往下正则匹配到E<br>/documents/Abc.jpg -&gt; config CC<br>最长匹配到C，往下正则顺序匹配到CC，不会往下到E</p>
+<p>所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
+<p>#直接匹配网站根，通过域名访问网站首页比较频繁，使用这个会加速处理，官网如是说。</p>
+<p>#这里是直接转发给后端应用服务器了，也可以是一个静态首页</p>
+<h1 id="第一个必选规则"><a href="#第一个必选规则" class="headerlink" title="第一个必选规则"></a>第一个必选规则</h1><p>location = / {<br>    proxy_pass <a href="http://tomcat:8080/index" target="_blank" rel="noopener">http://tomcat:8080/index</a><br>}</p>
+<h1 id="第二个必选规则是处理静态文件请求，这是nginx作为http服务器的强项"><a href="#第二个必选规则是处理静态文件请求，这是nginx作为http服务器的强项" class="headerlink" title="第二个必选规则是处理静态文件请求，这是nginx作为http服务器的强项"></a>第二个必选规则是处理静态文件请求，这是nginx作为http服务器的强项</h1><h1 id="有两种配置模式，目录匹配或后缀匹配-任选其一或搭配使用"><a href="#有两种配置模式，目录匹配或后缀匹配-任选其一或搭配使用" class="headerlink" title="有两种配置模式，目录匹配或后缀匹配,任选其一或搭配使用"></a>有两种配置模式，目录匹配或后缀匹配,任选其一或搭配使用</h1><p>location ^~ /static/ {<br>    root /webroot/static/;<br>}<br>location ~* .(gif|jpg|jpeg|png|css|js|ico)$ {<br>    root /webroot/res/;<br>}</p>
+<p>#第三个规则就是通用规则，用来转发动态请求到后端应用服务器</p>
+<p>#非静态文件请求就默认是动态请求，自己根据实际把握</p>
+<p>#毕竟目前的一些框架的流行，带.php,.jsp后缀的情况很少了<br>location / {<br>    proxy_pass <a href="http://tomcat:8080/" target="_blank" rel="noopener">http://tomcat:8080/</a><br>}</p>
+
+    </div>
+    <p class="post-meta">
+        <span class="post-cat">分类：
+            
+        </span>
+        <span class="post-tags">
+            标签：
+            
+    
+        <a href="/tags/Software/" title="Software">Software</a> / 
+    
+        <a href="/tags/Productivity/" title="Productivity">Productivity</a>
+    
+
+        </span>
+    </p>
+</article>
+<!-- 分享按钮 -->
+
+  <div class="article-share clearfix text-center">
+    <div class="share-area">
+      <span class="share-txt">分享到：</span>
+      <a href="javascript: window.open('http://service.weibo.com/share/share.php?url=' + encodeURIComponent(location.href) + '&title=' + document.title + '&language=zh_cn');" class="share-icon weibo"></a>
+      <a href="javascript: alert('请复制链接到微信并发送');" class="share-icon wechat"></a>
+      <a href="javascript: window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + encodeURIComponent(location.href) + '&title=' + document.title);" class="share-icon qqzone"></a>
+      <a href="javascript: window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + encodeURIComponent(location.href) + '&desc=yao个人博客&title=' + document.title + '&callback=' + encodeURIComponent(location.href));" class="share-icon qq"></a>
+      <a href="javascript: window.open('http://shuo.douban.com/!service/share?href=' + encodeURIComponent(location.href) + '&name=' + document.title + '&text=' + document.title);" class="share-icon douban"></a>
+    </div>
+  </div>
+
+
+<!-- 上一篇/下一篇 -->
+
+<div class="article-nav clearfix">
+    
+    <span class="prev fl">
+        上一篇<br >
+        <a href="/2018/10/12/markdown-user-function/">
+            
+                markdown基本语法使用
+            
+        </a>
+    </span>
+    
+
+    
+    <span class="next fr">
+        下一篇<br >
+        <a href="/2018/09/12/centos-iptables-config/">
+            
+                Centos7.3防火墙配置
+            
+        </a>
+    </span>
+    
+</div>
+
+<!-- 文章评论 -->
+
+  <script src="/js/comment.js"></script>
+  <div id="comments" class="comment">
+    <!--
+    <div class="sign-bar">
+      GitHub 已登录!
+      <span class="sign-link">登出</span>
+    </div>
+    <section class="box">
+      <div class="com-avatar"><img src="/img/jelon.jpg" alt="avatar"></div>
+      <div class="com-text">
+        <div class="main">
+          <textarea class="text-area-edited show" placeholder="欢迎评论！"></textarea>
+          <div class="text-area-preview"></div>
+        </div>
+        <div class="switch">
+          <div class="switch-item on">编辑</div>
+          <div class="switch-item">预览</div>
+        </div>
+        <div class="button">提交</div>
+      </div>
+    </section>
+    
+    <section class="list-wrap">
+      <ul class="list">
+        <li>
+          <div class="user-avatar">
+            <a href="/">
+              <img src="/img/jelon.jpg" alt="user-avatar">
+            </a>
+          </div>
+          <div class="user-comment">
+            <div class="user-comment-header">
+              <span class="post-name">张德龙</span>
+              <span class="post-time">2017年12月12日</span>
+              <span class="like liked">已赞</span>
+              <span class="like-num">2</span>
+            </div>
+            <div class="user-comment-body">333333</div>
+          </div>
+        </li>
+        <li>
+          <div class="user-avatar">
+            <a href="/">
+              <img src="/img/jelon.jpg" alt="user-avatar">
+            </a>
+          </div>
+          <div class="user-comment">
+            <div class="user-comment-header">
+              <span class="post-name">刘德华</span>
+              <span class="post-time">2017年12月12日</span>
+              <span class="like">点赞</span>
+              <span class="like-num">2</span>
+            </div>
+            <div class="user-comment-body">vvvvv</div>
+          </div>
+        </li>
+      </ul>
+      <div class="page-nav">
+        <a href="javascript: void(0);" class="item">1</a>
+        <a href="javascript: void(0);" class="item">2</a>
+        <a href="javascript: void(0);" class="item current">3</a>
+      </div>
+    </section>
+    -->
+  </div>
+  <script>
+  JELON.Comment({
+    container: 'comments',
+    label: 'the-nginx-software' || '2018/10/12/the-nginx-software/',
+    owner: 'yzengchn',
+    repo: 'yzengchn.github.io',
+    clientId: 'b8823ce4a2464f232d7a',
+    clientSecret: '077f27a9975cb507b9b536121f550e9402ceccd3'
+  });
+  </script>
+
+
+            </div>
+
+        </section>
+        <!-- 侧栏部分 -->
+<aside class="sidebar">
+    <section class="widget">
+        <h3 class="widget-hd"><strong>文章分类</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+</ul>
+    </section>
+
+    
+    <section class="widget">
+        <h3 class="widget-hd"><strong>热门标签</strong></h3>
+        <!-- 文章标签 -->
+<div class="widget-bd tag-wrap">
+  
+    <a class="tag-item" href="/tags/redis/" title="redis">redis (1)</a>
+  
+    <a class="tag-item" href="/tags/Software/" title="Software">Software (3)</a>
+  
+    <a class="tag-item" href="/tags/Productivity/" title="Productivity">Productivity (2)</a>
+  
+    <a class="tag-item" href="/tags/java/" title="java">java (2)</a>
+  
+    <a class="tag-item" href="/tags/Programming/" title="Programming">Programming (1)</a>
+  
+    <a class="tag-item" href="/tags/Learn/" title="Learn">Learn (1)</a>
+  
+    <a class="tag-item" href="/tags/springboot/" title="springboot">springboot (1)</a>
+  
+</div>
+    </section>
+    
+
+    
+
+    
+    <!-- 友情链接 -->
+    <section class="widget">
+        <h3 class="widget-hd"><strong>友情链接</strong></h3>
+        <!-- 文章分类 -->
+<ul class="widget-bd">
+    
+        <li>
+            <a href="https://frankzyzy.github.io" target="_blank" title="Web开发博客">frankzyzy博客</a>
+        </li>
+    
+        <li>
+            <a href="https://wock1987.github.io" target="_blank" title="吹B大神博客">wock1987博客</a>
+        </li>
+    
+        <li>
+            <a href="https://linaqun.github.io" target="_blank" title="吃吃吃博客">吃货公主博客</a>
+        </li>
+    
+</ul>
+    </section>
+    
+</aside>
+<!-- / 侧栏部分 -->
+    </div>
+
+    <!-- 博客底部 -->
+    <footer class="footer">
+    &copy;
+    
+        2017-2018
+    
+
+    <a href="/"> © yzengchn</a>
+</footer>
+<div class="back-to-top" id="JELON__backToTop" title="返回顶部">返回顶部</div>
+
+    <!--博客js脚本 -->
+    <!-- 这里放网站js脚本 -->
+<script src="/js/main.js"></script>
+</body>
+</html>
